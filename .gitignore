@@ -1,0 +1,7 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/ConsoleApp/obj/Release/net7.0
+/EstudoAutoMapper/obj/Release/net7.0
