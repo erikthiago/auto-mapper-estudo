@@ -1,0 +1,12 @@
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\bin\Debug\net7.0\EstudoAutoMapper.deps.json
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\bin\Debug\net7.0\EstudoAutoMapper.dll
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\bin\Debug\net7.0\EstudoAutoMapper.pdb
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\obj\Debug\net7.0\EstudoAutoMapper.csproj.AssemblyReference.cache
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\obj\Debug\net7.0\EstudoAutoMapper.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\obj\Debug\net7.0\EstudoAutoMapper.AssemblyInfoInputs.cache
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\obj\Debug\net7.0\EstudoAutoMapper.AssemblyInfo.cs
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\obj\Debug\net7.0\EstudoAutoMapper.csproj.CoreCompileInputs.cache
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\obj\Debug\net7.0\EstudoAutoMapper.dll
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\obj\Debug\net7.0\refint\EstudoAutoMapper.dll
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\obj\Debug\net7.0\EstudoAutoMapper.pdb
+C:\dev\EstudoAutoMapper\EstudoAutoMapper\obj\Debug\net7.0\ref\EstudoAutoMapper.dll
