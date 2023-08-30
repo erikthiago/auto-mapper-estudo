@@ -25,5 +25,13 @@
         /// Colocado para exemplificar quando há nomes diferentes entre os objetos
         /// </summary>
         public string? Dept { get; set; }
+        /// <summary>
+        /// Objeto criado para representar como mapear objetos complexos
+        /// </summary>
+        public AddressDTO? AddressObject { get; set; }
+        /// <summary>
+        /// Objeto criado para representar como mapear objetos complexos para mostrar erro por estar com nome diferente
+        /// </summary>
+        public AddressDTO? AddressDTO { get; set; }
     }
 }
