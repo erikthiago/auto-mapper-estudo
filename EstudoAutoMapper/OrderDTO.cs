@@ -1,5 +1,8 @@
 ﻿namespace EstudoAutoMapper
 {
+    /// <summary>
+    /// Classe usada no estudo do reverse mapping no AutoMapper
+    /// </summary>
     public class OrderDTO
     {
         public int OrderId { get; set; }

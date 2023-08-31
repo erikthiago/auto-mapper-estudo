@@ -42,11 +42,11 @@ namespace EstudoAutoMapper
 
                 //Provide Mapping Information for City Property
                 .ForMember(dest => dest.City, act => act.MapFrom(src => src.AddressObject.City))
-                 //Provide Mapping Information for State Property
+                //Provide Mapping Information for State Property
                 .ForMember(dest => dest.State, act => act.MapFrom(src => src.AddressObject.State))
-                 //Provide Mapping Information for Country Property
+                //Provide Mapping Information for Country Property
                 .ForMember(dest => dest.Country, act => act.MapFrom(src => src.AddressObject.Country))
-                
+
                 // Provide Mapping Information for Address Object
                 .ForMember(dest => dest.AddressObjectPrimtive, act => act.MapFrom(src => new Address()
                 {
@@ -55,16 +55,16 @@ namespace EstudoAutoMapper
                     Country = src.Country
                 }));
 
-               // Configuring reverse map
-               cfg.CreateMap<Order, OrderDTO>()
-                  //OrderId is different so map them using For Member
-                  .ForMember(dest => dest.OrderId, act => act.MapFrom(src => src.OrderNo))
-                  //Customer is a Complex type, so Map Customer to Simple type using For Member
-                  .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Customer.FullName))
-                  .ForMember(dest => dest.PostCode, act => act.MapFrom(src => src.Customer.PostCode))
-                  .ForMember(dest => dest.MobileNo, act => act.MapFrom(src => src.Customer.ContactNo))
-                  .ForMember(dest => dest.CustomerId, act => act.MapFrom(src => src.Customer.CustomerID))
-                  .ReverseMap(); //Making the Mapping Bi-Directional;
+                // Configuring reverse map
+                cfg.CreateMap<Order, OrderDTO>()
+                   //OrderId is different so map them using For Member
+                   .ForMember(dest => dest.OrderId, act => act.MapFrom(src => src.OrderNo))
+                   //Customer is a Complex type, so Map Customer to Simple type using For Member
+                   .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Customer.FullName))
+                   .ForMember(dest => dest.PostCode, act => act.MapFrom(src => src.Customer.PostCode))
+                   .ForMember(dest => dest.MobileNo, act => act.MapFrom(src => src.Customer.ContactNo))
+                   .ForMember(dest => dest.CustomerId, act => act.MapFrom(src => src.Customer.CustomerID))
+                   .ReverseMap(); //Making the Mapping Bi-Directional;
 
                 //Mapping Order with OrderDTO
                 cfg.CreateMap<Order, OrderDTO>()
@@ -77,13 +77,21 @@ namespace EstudoAutoMapper
                        ContactNo = src.MobileNo
                    }))
                    .ReverseMap() //This will make the Mapping as Bi-Directional
-                                   //Now, we can also Map OrderDTO with Order Object
-                    // Mappping Complex Type to Primitive Type Properties (if this config is not present, AutoMapper 
-                    // do not put the correct values on reverse map)
-                    .ForMember(dest => dest.CustomerId, act => act.MapFrom(src => src.Customer.CustomerID))
-                    .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Customer.FullName))
-                    .ForMember(dest => dest.MobileNo, act => act.MapFrom(src => src.Customer.ContactNo))
-                    .ForMember(dest => dest.PostCode, act => act.MapFrom(src => src.Customer.PostCode));
+                                 //Now, we can also Map OrderDTO with Order Object
+                                 // Mappping Complex Type to Primitive Type Properties (if this config is not present, AutoMapper 
+                                 // do not put the correct values on reverse map)
+                   .ForMember(dest => dest.CustomerId, act => act.MapFrom(src => src.Customer.CustomerID))
+                   .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Customer.FullName))
+                   .ForMember(dest => dest.MobileNo, act => act.MapFrom(src => src.Customer.ContactNo))
+                   .ForMember(dest => dest.PostCode, act => act.MapFrom(src => src.Customer.PostCode));
+
+                cfg.CreateMap<Product, ProductDTO>()
+                   //If the Name Start with A then Map the Name Value else Map the OptionalName value
+                   .ForMember(dest => dest.ItemName, act => act.MapFrom(src => (src.Name.StartsWith("A") ? src.Name : src.OptionalName)))
+                   //Map the quantity value if its greater than 0
+                   .ForMember(dest => dest.ItemQuantity, act => act.Condition(src => (src.Quantity > 0)))
+                   //Map the amount value if its greater than 100
+                   .ForMember(dest => dest.Amount, act => act.Condition(src => (src.Amount > 100)));
             });
 
             //Create an Instance of Mapper and return that Instance

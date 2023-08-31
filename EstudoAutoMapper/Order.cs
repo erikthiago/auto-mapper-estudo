@@ -1,5 +1,8 @@
 ﻿namespace EstudoAutoMapper
 {
+    /// <summary>
+    /// Classe utilizada para estudo do mapeamento inverso usando AutoMapper
+    /// </summary>
     public class Order
     {
         public int OrderNo { get; set; }

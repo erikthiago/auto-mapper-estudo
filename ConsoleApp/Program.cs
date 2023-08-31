@@ -293,7 +293,7 @@ Console.WriteLine("ContactNo : " + OrderRequest.Customer.ContactNo);
 
 Console.WriteLine();
 
-#region AutoMapper  configurado com o reverse mapping e map de objetos complexos e primitivos
+#region AutoMapper configurado com o reverse mapping e map de objetos complexos e primitivos
 
 // Create the Order Request
 var OrderRequestWithoutCustomerObject = CreateOrderRequestWithoutCustomerObject();
@@ -334,6 +334,38 @@ Console.WriteLine("\nCustomerId : " + OrderRequestWithoutCustomerObject.Customer
 Console.WriteLine("Name : " + OrderRequestWithoutCustomerObject.Name);
 Console.WriteLine("Postcode : " + OrderRequestWithoutCustomerObject.PostCode);
 Console.WriteLine("MobileNo : " + OrderRequestWithoutCustomerObject.MobileNo);
+
+#endregion
+
+Console.WriteLine();
+
+#region AutoMapper configurado com condições
+
+Product product = new Product()
+{
+    ProductID = 101,
+    Name = "Led TV", // Se aqui o nome começar com A, mostra, se não, mostra o OptionalName
+    OptionalName = "Product name not start with A",
+    Quantity = -5, // Se for maior que 0, mostra, senão, mostra 0
+    Amount = 1000 // Se for maior que 100, mostra, senão, mostra 0
+};
+
+var productDTO = mapper.Map<Product, ProductDTO>(product);
+
+Console.WriteLine("Before Mapping : Product Object");
+Console.WriteLine("ProductID : " + product.ProductID);
+Console.WriteLine("Name : " + product.Name);
+Console.WriteLine("OptionalName : " + product.OptionalName);
+Console.WriteLine("Quantity : " + product.Quantity);
+Console.WriteLine("Amount : " + product.Amount);
+
+Console.WriteLine();
+
+Console.WriteLine("After Mapping : ProductDTO Object");
+Console.WriteLine("ProductID : " + productDTO.ProductID);
+Console.WriteLine("ItemName : " + productDTO.ItemName);
+Console.WriteLine("ItemQuantity : " + productDTO.ItemQuantity);
+Console.WriteLine("Amount : " + productDTO.Amount);
 
 #endregion
 
