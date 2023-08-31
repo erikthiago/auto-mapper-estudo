@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Net;
+using System.Linq;
 
 namespace EstudoAutoMapper
 {
@@ -37,7 +38,22 @@ namespace EstudoAutoMapper
                 .ForMember(dest => dest.Dept, act => act.MapFrom(src => src.Department))
 
                 // Provide Mapping Information for AddressDTO and address
-                .ForMember(dest => dest.AddressObject, act => act.MapFrom(src => src.AddressObject));
+                .ForMember(dest => dest.AddressObject, act => act.MapFrom(src => src.AddressObject))
+
+               //Provide Mapping Information for City Property
+               .ForMember(dest => dest.City, act => act.MapFrom(src => src.AddressObject.City))
+                //Provide Mapping Information for State Property
+               .ForMember(dest => dest.State, act => act.MapFrom(src => src.AddressObject.State))
+                //Provide Mapping Information for Country Property
+               .ForMember(dest => dest.Country, act => act.MapFrom(src => src.AddressObject.Country))
+
+               // Provide Mapping Information for Address Object
+               .ForMember(dest => dest.AddressObjectPrimtive, act => act.MapFrom(src => new Address()
+               {
+                   City = src.City,
+                   State = src.State,
+                   Country = src.Country
+               })); ;
             });
 
             //Create an Instance of Mapper and return that Instance

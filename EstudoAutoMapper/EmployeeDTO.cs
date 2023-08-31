@@ -33,5 +33,23 @@
         /// Objeto criado para representar como mapear objetos complexos para mostrar erro por estar com nome diferente
         /// </summary>
         public AddressDTO? AddressDTO { get; set; }
+
+        /// <summary>
+        /// Tipo criado para exemplificar como mapear para tipos primitivos
+        /// </summary>
+        public string? City { get; set; }
+        /// <summary>
+        /// Tipo criado para exemplificar como mapear para tipos primitivos
+        /// </summary>
+        public string? State { get; set; }
+        /// <summary>
+        /// Tipo criado para exemplificar como mapear para tipos primitivos
+        /// </summary>
+        public string? Country { get; set; }
+
+        /// <summary>
+        /// Objeto criado para representar como mapear objetos complexos com dados de tipos primitivos
+        /// </summary>
+        public AddressDTO? AddressObjectPrimtive { get; set; }
     }
 }

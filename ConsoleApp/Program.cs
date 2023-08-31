@@ -15,7 +15,10 @@ Employee emp = new Employee
     Salary = 20000,
     Address = "London",
     Department = "IT",
-    AddressObject = address
+    AddressObject = address,
+    City = "Brasilia",
+    Country = "Brazil",
+    State = "Distrito Federal"
 };
 
 EmployeeDTO empDTO = new EmployeeDTO
@@ -163,7 +166,7 @@ Console.WriteLine("Com AutoMapper configurado com o objeto complexo Address com 
 
 Console.WriteLine("Mostrando os dados do objeto complexo Address com props nome diferente vai retornar vazio \n" +
                   "City: " + dtoMapeado6.AddressObject.EmpCityEmpty +
-                  ", State: " + dtoMapeado6.AddressObject.EmpCityEmpty +
+                  ", State: " + dtoMapeado6.AddressObject.EmpStateEmpty +
                   ", Country: " + dtoMapeado6.AddressObject.Country);
 
 #endregion
@@ -181,8 +184,44 @@ Console.WriteLine("Com AutoMapper configurado com o objeto complexo Address com 
 
 Console.WriteLine("Mostrando os dados do objeto complexo Address com props nome diferente vai retornar normal \n" +
                   "City: " + dtoMapeado7.AddressObject.EmpCity +
-                  ", State: " + dtoMapeado7.AddressObject.EmpCity +
+                  ", State: " + dtoMapeado7.AddressObject.EmpState +
                   ", Country: " + dtoMapeado7.AddressObject.Country);
+
+#endregion
+
+#region AutoMapper configurado tipos primitivos para o objeto complexo Address
+
+// Outras configurações na classe MapperConfig
+var dtoMapeado8 = mapper.Map<EmployeeDTO>(emp);
+
+Console.WriteLine("Com AutoMapper configurado tipos primitivos para o objeto complexo Address \n" +
+                  "Name: " + dtoMapeado8.FullName +
+                  ", Salary: " + dtoMapeado8.Salary +
+                  ", Address: " + dtoMapeado8.Address +
+                  ", Department: " + dtoMapeado8.Dept);
+
+Console.WriteLine("Mostrando os dados dos tipos primitivos para o objeto complexo Address \n" +
+                  "City: " + dtoMapeado8.AddressObject.City +
+                  ", State: " + dtoMapeado8.AddressObject.State+
+                  ", Country: " + dtoMapeado8.AddressObject.Country);
+
+#endregion
+
+#region AutoMapper configurado o objeto complexo Address para tipos primitivos
+
+// Outras configurações na classe MapperConfig
+var dtoMapeado9 = mapper.Map<EmployeeDTO>(emp);
+
+Console.WriteLine("Com AutoMapper configurado o objeto complexo Address para tipos primitivos \n" +
+                  "Name: " + dtoMapeado9.FullName +
+                  ", Salary: " + dtoMapeado9.Salary +
+                  ", Address: " + dtoMapeado9.Address +
+                  ", Department: " + dtoMapeado9.Dept);
+
+Console.WriteLine("Mostrando os dados dos o objeto complexo Address para tipos primitivos \n" +
+                  "City: " + dtoMapeado9.AddressObjectPrimtive.City +
+                  ", State: " + dtoMapeado9.AddressObjectPrimtive.State +
+                  ", Country: " + dtoMapeado9.AddressObjectPrimtive.Country);
 
 #endregion
 
