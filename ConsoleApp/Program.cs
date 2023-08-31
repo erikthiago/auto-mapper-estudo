@@ -35,6 +35,8 @@ Console.WriteLine("Sem AutoMapper \n" + "Name:" + empDTO.Name + ", Salary:" + em
 
 #endregion
 
+Console.WriteLine();
+
 // Inicializando o AutoMapper
 var mapper = MapperConfig.InitializeAutomapper();
 
@@ -53,6 +55,8 @@ Console.WriteLine("Com AutoMapper \n" +
                   ", Department: " + dtoMapeadoFormaUm.Department);
 #endregion
 
+Console.WriteLine();
+
 #region Usando o AutoMapper com props com nomes diferentes deve retornar vazio
 
 // Departamento e Nome não devem ser mostrados
@@ -66,6 +70,8 @@ Console.WriteLine("Com AutoMapper e com props com nomes diferentes não vão apa
 
 #endregion
 
+Console.WriteLine();
+
 #region Usando o AutoMapper com props com nomes diferentes configurado para aparecer normal
 
 // Outras configurações na classe MapperConfig
@@ -78,6 +84,8 @@ Console.WriteLine("Com AutoMapper e com props com nomes diferentes configurados 
                   ", Department: " + dtoMapeado1.Dept);
 
 #endregion
+
+Console.WriteLine();
 
 #region AutoMapper vai lançar uma exceção por conta do objeto complexo Address
 
@@ -98,6 +106,8 @@ Console.WriteLine("Com AutoMapper vai lançar exceção por conta do objeto comp
 
 #endregion
 
+Console.WriteLine();
+
 #region AutoMapper configurado com o objeto complexo Address
 
 // Outras configurações na classe MapperConfig
@@ -115,6 +125,8 @@ Console.WriteLine("Mostrando os dados do objeto complexo Address \n" +
                   ", Country: " + dtoMapeado3.AddressObject.Country);
 
 #endregion
+
+Console.WriteLine();
 
 #region AutoMapper configurado com o objeto complexo Address com nome diferente vai retornar erro
 
@@ -135,6 +147,8 @@ Console.WriteLine("Com AutoMapper configurado com o objeto complexo Address com 
 
 #endregion
 
+Console.WriteLine();
+
 #region AutoMapper configurado com o objeto complexo Address com nome diferente vai retornar normal
 
 // Outras configurações na classe MapperConfig
@@ -152,6 +166,8 @@ Console.WriteLine("Mostrando os dados do objeto complexo Address com nome difere
                   ", Country: " + dtoMapeado5.AddressObject.Country);
 
 #endregion
+
+Console.WriteLine();
 
 #region AutoMapper configurado com o objeto complexo Address com props nome diferente vai retornar vazio
 
@@ -171,6 +187,8 @@ Console.WriteLine("Mostrando os dados do objeto complexo Address com props nome 
 
 #endregion
 
+Console.WriteLine();
+
 #region AutoMapper configurado com o objeto complexo Address com props nome diferente vai retornar normal
 
 // Outras configurações na classe MapperConfig
@@ -188,6 +206,8 @@ Console.WriteLine("Mostrando os dados do objeto complexo Address com props nome 
                   ", Country: " + dtoMapeado7.AddressObject.Country);
 
 #endregion
+
+Console.WriteLine();
 
 #region AutoMapper configurado tipos primitivos para o objeto complexo Address
 
@@ -207,6 +227,8 @@ Console.WriteLine("Mostrando os dados dos tipos primitivos para o objeto complex
 
 #endregion
 
+Console.WriteLine();
+
 #region AutoMapper configurado o objeto complexo Address para tipos primitivos
 
 // Outras configurações na classe MapperConfig
@@ -225,4 +247,125 @@ Console.WriteLine("Mostrando os dados dos o objeto complexo Address para tipos p
 
 #endregion
 
+Console.WriteLine();
+
+#region AutoMapper configurado com o reverse mapping
+
+// Create the Order Request
+Order OrderRequest = CreateOrderRequest();
+
+var orderDTOData = mapper.Map<OrderDTO>(OrderRequest);
+
+// Print the OrderDTO Data
+Console.WriteLine("After Mapping - OrderDTO Data");
+Console.WriteLine("OrderId : " + orderDTOData.OrderId);
+Console.WriteLine("NumberOfItems : " + orderDTOData.NumberOfItems);
+Console.WriteLine("TotalAmount : " + orderDTOData.TotalAmount);
+Console.WriteLine("CustomerId : " + orderDTOData.CustomerId);
+Console.WriteLine("Name : " + orderDTOData.Name);
+Console.WriteLine("Postcode : " + orderDTOData.PostCode);
+Console.WriteLine("MobileNo : " + orderDTOData.MobileNo);
+
+Console.WriteLine();
+
+// Modify the OrderDTO data
+orderDTOData.OrderId = 10;
+orderDTOData.NumberOfItems = 20;
+orderDTOData.TotalAmount = 2000;
+orderDTOData.CustomerId = 5;
+orderDTOData.Name = "Smith";
+orderDTOData.PostCode = "12345";
+
+// AutoMapper Reverse Mapping
+mapper.Map(orderDTOData, OrderRequest);
+
+// Print Order Data
+Console.WriteLine("After Reverse Mapping - Order Data");
+Console.WriteLine("OrderNo : " + OrderRequest.OrderNo);
+Console.WriteLine("NumberOfItems : " + OrderRequest.NumberOfItems);
+Console.WriteLine("TotalAmount : " + OrderRequest.TotalAmount);
+Console.WriteLine("CustomerId : " + OrderRequest.Customer.CustomerID);
+Console.WriteLine("FullName : " + OrderRequest.Customer.FullName);
+Console.WriteLine("Postcode : " + OrderRequest.Customer.PostCode);
+Console.WriteLine("ContactNo : " + OrderRequest.Customer.ContactNo);
+
+#endregion
+
+Console.WriteLine();
+
+#region AutoMapper  configurado com o reverse mapping e map de objetos complexos e primitivos
+
+// Create the Order Request
+var OrderRequestWithoutCustomerObject = CreateOrderRequestWithoutCustomerObject();
+
+// Map the OrderRequest object to Order DTO
+var orderDTOData1 = mapper.Map<Order, OrderDTO>(OrderRequestWithoutCustomerObject);
+
+// Print the OrderDTO Data
+Console.WriteLine("After Mapping - OrderDTO Data");
+Console.WriteLine("OrderId : " + orderDTOData1.OrderId);
+Console.WriteLine("NumberOfItems : " + orderDTOData1.NumberOfItems);
+Console.WriteLine("TotalAmount : " + orderDTOData1.TotalAmount);
+Console.WriteLine("CustomerId : " + orderDTOData1.Customer.CustomerID);
+Console.WriteLine("FullName : " + orderDTOData1.Customer.FullName);
+Console.WriteLine("Postcode : " + orderDTOData1.Customer.PostCode);
+Console.WriteLine("ContactNo : " + orderDTOData1.Customer.ContactNo);
+
+Console.WriteLine();
+
+// Modify the OrderDTO data
+orderDTOData1.OrderId = 10;
+orderDTOData1.NumberOfItems = 20;
+orderDTOData1.TotalAmount = 2000;
+orderDTOData1.Customer.CustomerID = 5;
+orderDTOData1.Customer.FullName = "Pranaya Rout";
+orderDTOData1.Customer.PostCode = "12345";
+orderDTOData1.Customer.ContactNo = "0011220034";
+
+// Reverse Mapping
+mapper.Map(orderDTOData1, OrderRequestWithoutCustomerObject);
+
+// Print the Order Data
+Console.WriteLine("After Reverse Mapping - Order Data");
+Console.WriteLine("OrderNo : " + OrderRequestWithoutCustomerObject.OrderNo);
+Console.WriteLine("NumberOfItems : " + OrderRequestWithoutCustomerObject.NumberOfItems);
+Console.WriteLine("TotalAmount : " + OrderRequestWithoutCustomerObject.TotalAmount);
+Console.WriteLine("\nCustomerId : " + OrderRequestWithoutCustomerObject.CustomerId);
+Console.WriteLine("Name : " + OrderRequestWithoutCustomerObject.Name);
+Console.WriteLine("Postcode : " + OrderRequestWithoutCustomerObject.PostCode);
+Console.WriteLine("MobileNo : " + OrderRequestWithoutCustomerObject.MobileNo);
+
+#endregion
+
 Console.ReadLine();
+
+static Order CreateOrderRequest()
+{
+    return new Order
+    {
+        OrderNo = 101,
+        NumberOfItems = 3,
+        TotalAmount = 1000,
+        Customer = new Customer()
+        {
+            CustomerID = 777,
+            FullName = "James Smith",
+            PostCode = "755019",
+            ContactNo = "1234567890"
+        },
+    };
+}
+
+static Order CreateOrderRequestWithoutCustomerObject()
+{
+    return new Order
+    {
+        OrderNo = 101,
+        NumberOfItems = 3,
+        TotalAmount = 1000,
+        CustomerId = 777,
+        Name = "James Smith",
+        PostCode = "755019",
+        MobileNo = "1234567890"
+    };
+}

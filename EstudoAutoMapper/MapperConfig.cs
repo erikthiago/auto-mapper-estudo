@@ -40,20 +40,50 @@ namespace EstudoAutoMapper
                 // Provide Mapping Information for AddressDTO and address
                 .ForMember(dest => dest.AddressObject, act => act.MapFrom(src => src.AddressObject))
 
-               //Provide Mapping Information for City Property
-               .ForMember(dest => dest.City, act => act.MapFrom(src => src.AddressObject.City))
-                //Provide Mapping Information for State Property
-               .ForMember(dest => dest.State, act => act.MapFrom(src => src.AddressObject.State))
-                //Provide Mapping Information for Country Property
-               .ForMember(dest => dest.Country, act => act.MapFrom(src => src.AddressObject.Country))
+                //Provide Mapping Information for City Property
+                .ForMember(dest => dest.City, act => act.MapFrom(src => src.AddressObject.City))
+                 //Provide Mapping Information for State Property
+                .ForMember(dest => dest.State, act => act.MapFrom(src => src.AddressObject.State))
+                 //Provide Mapping Information for Country Property
+                .ForMember(dest => dest.Country, act => act.MapFrom(src => src.AddressObject.Country))
+                
+                // Provide Mapping Information for Address Object
+                .ForMember(dest => dest.AddressObjectPrimtive, act => act.MapFrom(src => new Address()
+                {
+                    City = src.City,
+                    State = src.State,
+                    Country = src.Country
+                }));
 
-               // Provide Mapping Information for Address Object
-               .ForMember(dest => dest.AddressObjectPrimtive, act => act.MapFrom(src => new Address()
-               {
-                   City = src.City,
-                   State = src.State,
-                   Country = src.Country
-               })); ;
+               // Configuring reverse map
+               cfg.CreateMap<Order, OrderDTO>()
+                  //OrderId is different so map them using For Member
+                  .ForMember(dest => dest.OrderId, act => act.MapFrom(src => src.OrderNo))
+                  //Customer is a Complex type, so Map Customer to Simple type using For Member
+                  .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Customer.FullName))
+                  .ForMember(dest => dest.PostCode, act => act.MapFrom(src => src.Customer.PostCode))
+                  .ForMember(dest => dest.MobileNo, act => act.MapFrom(src => src.Customer.ContactNo))
+                  .ForMember(dest => dest.CustomerId, act => act.MapFrom(src => src.Customer.CustomerID))
+                  .ReverseMap(); //Making the Mapping Bi-Directional;
+
+                //Mapping Order with OrderDTO
+                cfg.CreateMap<Order, OrderDTO>()
+                   .ForMember(dest => dest.OrderId, act => act.MapFrom(src => src.OrderNo))
+                   .ForMember(dest => dest.Customer, act => act.MapFrom(src => new Customer()
+                   {
+                       CustomerID = src.CustomerId,
+                       FullName = src.Name,
+                       PostCode = src.PostCode,
+                       ContactNo = src.MobileNo
+                   }))
+                   .ReverseMap() //This will make the Mapping as Bi-Directional
+                                   //Now, we can also Map OrderDTO with Order Object
+                    // Mappping Complex Type to Primitive Type Properties (if this config is not present, AutoMapper 
+                    // do not put the correct values on reverse map)
+                    .ForMember(dest => dest.CustomerId, act => act.MapFrom(src => src.Customer.CustomerID))
+                    .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Customer.FullName))
+                    .ForMember(dest => dest.MobileNo, act => act.MapFrom(src => src.Customer.ContactNo))
+                    .ForMember(dest => dest.PostCode, act => act.MapFrom(src => src.Customer.PostCode));
             });
 
             //Create an Instance of Mapper and return that Instance
