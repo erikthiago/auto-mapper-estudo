@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+// link do tutorial https://dotnettutorials.net/lesson/automapper-in-c-sharp/
+
 using EstudoAutoMapper;
 
 Address address = new Address
