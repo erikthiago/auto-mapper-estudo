@@ -17,6 +17,8 @@
         public int Salary { get; set; }
         public string? Address { get; set; }
         public string? Department { get; set; }
+        public string? Email { get; set; }
+
         /// <summary>
         /// Colocado para exemplificar quando há nomes diferentes entre os objetos para vir vazio
         /// </summary>
@@ -51,5 +53,21 @@
         /// Objeto criado para representar como mapear objetos complexos com dados de tipos primitivos
         /// </summary>
         public AddressDTO? AddressObjectPrimtive { get; set; }
+
+        /// <summary>
+        /// Tipo criado para exemplificar como ignorar propriedades no AutoMapper
+        /// </summary>
+        public string? AddressToIgnore { get; set; }
+
+        /// <summary>
+        /// Tipo criado para exemplificar como ignorar várias props usando método de extensão
+        /// </summary>
+        [NoMap]
+        public string? EmailToIgnore { get; set; }
+        /// <summary>
+        /// Tipo criado para exemplificar como ignorar várias props usando método de extensão
+        /// </summary>
+        [NoMap]
+        public string? AddressToIgnoreExtensionMethod { get; set; }
     }
 }

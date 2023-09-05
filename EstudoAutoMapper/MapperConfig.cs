@@ -47,6 +47,12 @@ namespace EstudoAutoMapper
                 //Provide Mapping Information for Country Property
                 .ForMember(dest => dest.Country, act => act.MapFrom(src => src.AddressObject.Country))
 
+                //Ignoring the Address property of the destination type
+                .ForMember(dest => dest.AddressToIgnore, act => act.Ignore())
+
+                // Ignoring property by extension method that decoretad with [NoMap]
+                .IgnoreNoMap()
+
                 // Provide Mapping Information for Address Object
                 .ForMember(dest => dest.AddressObjectPrimtive, act => act.MapFrom(src => new Address()
                 {
@@ -92,12 +98,36 @@ namespace EstudoAutoMapper
                    .ForMember(dest => dest.ItemQuantity, act => act.Condition(src => (src.Quantity > 0)))
                    //Map the amount value if its greater than 100
                    .ForMember(dest => dest.Amount, act => act.Condition(src => (src.Amount > 100)));
+
+                cfg.CreateMap<PermanentAddress, TemporaryAddress>()
+                   //Using MapFrom Method to Store Static or Hard-Coded Value in a Destination Property
+                   .ForMember(dest => dest.CreatedBy, act => act.MapFrom(src => "System"))
+                   //Before AutoMapper 8.0, to Store Static Value use the UseValue() method
+                   //.ForMember(dest => dest.CreatedBy, act => act.UseValue("System"))
+                   //Using MapFrom Method to Store Dynamic Value in a Destination Property
+                   //Here, we are calling GetCurrentDateTime method which will return a dynamic value
+                   .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => GetCurrentDateTime()))
+                   ////Before AutoMapper 8.0, To Store Dynamic value use ResolveUsing() method
+                   //.ForMember(dest => dest.CreatedBy, act => act.ResolveUsing(src =>
+                   //{
+                   //    return DateTime.Now;
+                   //}))
+                   //Storing NA in the destination Address Property, if Source Address is NULL
+                   .ForMember(dest => dest.AddressNull, act => act.NullSubstitute("N/A"))
+                   .ReverseMap();
             });
 
             //Create an Instance of Mapper and return that Instance
             var mapper = new Mapper(config);
 
             return mapper;
+        }
+
+        //Method to return Dynamic Value
+        public static DateTime GetCurrentDateTime()
+        {
+            //Write the Logic to Get Dynamic value
+            return DateTime.Now;
         }
     }
 }

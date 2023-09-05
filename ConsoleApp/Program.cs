@@ -18,7 +18,8 @@ Employee emp = new Employee
     AddressObject = address,
     City = "Brasilia",
     Country = "Brazil",
-    State = "Distrito Federal"
+    State = "Distrito Federal",
+    Email = "test@email.com"
 };
 
 EmployeeDTO empDTO = new EmployeeDTO
@@ -26,7 +27,23 @@ EmployeeDTO empDTO = new EmployeeDTO
     Name = emp.Name,
     Salary = emp.Salary,
     Address = emp.Address,
-    Department = emp.Department
+    Department = emp.Department,
+    Email = emp.Email
+};
+
+PermanentAddress permAddress = new PermanentAddress()
+{
+    Name = "Pranaya",
+    Address = "Mumbai"
+};
+
+PermanentAddress permAddress1 = new PermanentAddress()
+{
+    Name = "Pranaya",
+    Address = "Mumbai",
+    CreatedBy = "Dot Net Tutorials",
+    CreatedOn = DateTime.Now,
+    AddressNull = null
 };
 
 #region Sem AutoMapper
@@ -366,6 +383,84 @@ Console.WriteLine("ProductID : " + productDTO.ProductID);
 Console.WriteLine("ItemName : " + productDTO.ItemName);
 Console.WriteLine("ItemQuantity : " + productDTO.ItemQuantity);
 Console.WriteLine("Amount : " + productDTO.Amount);
+
+#endregion
+
+Console.WriteLine();
+
+#region AutoMapper configurado para ignorar propriedades
+
+// Outras configurações na classe MapperConfig
+var dtoMapeado10 = mapper.Map<EmployeeDTO>(emp);
+
+Console.WriteLine("AutoMapper configurado para ignorar propriedades \n" +
+                  "Name: " + dtoMapeado10.FullName +
+                  ", Salary: " + dtoMapeado10.Salary +
+                  ", Address: " + dtoMapeado10.Address +
+                  ", Department: " + dtoMapeado10.Dept +
+                  ", Email: " + dtoMapeado10.Email);
+
+Console.WriteLine("AutoMapper configurado para ignorar propriedades \n" +
+                  "Name: " + dtoMapeado10.FullName +
+                  ", Salary: " + dtoMapeado10.Salary +
+                  ", Department: " + dtoMapeado10.Dept +
+                  ", Email: " + dtoMapeado10.Email +
+                  ", Address: " + dtoMapeado10.AddressToIgnore);
+
+#endregion
+
+Console.WriteLine();
+
+#region AutoMapper configurado para ignorar propriedades com método de extensão
+
+// Outras configurações na classe MapperConfig
+var dtoMapeado11 = mapper.Map<EmployeeDTO>(emp);
+
+Console.WriteLine("AutoMapper configurado para ignorar propriedades com método de extensão \n" +
+                  "Name: " + dtoMapeado11.FullName +
+                  ", Salary: " + dtoMapeado11.Salary +
+                  ", Address: " + dtoMapeado11.Address +
+                  ", Department: " + dtoMapeado11.Dept +
+                  ", Email: " + dtoMapeado11.Email);
+
+Console.WriteLine("AutoMapper configurado para ignorar propriedades com método de extensão \n" +
+                  "Name: " + dtoMapeado11.FullName +
+                  ", Salary: " + dtoMapeado11.Salary +
+                  ", Department: " + dtoMapeado11.Dept +
+                  ", Email: " + dtoMapeado11.EmailToIgnore +
+                  ", Address: " + dtoMapeado11.AddressToIgnoreExtensionMethod);
+
+#endregion
+
+Console.WriteLine();
+
+#region AutoMapper configurado para usar valores fixos e dinamicos
+
+// Outras configurações na classe MapperConfig
+var tempAddress = mapper.Map<TemporaryAddress>(permAddress);
+
+Console.WriteLine("After Mapping Permanent Address without createdby and createdon null");
+//Here CreatedBy and CreatedOn will be empty for Permanent Address
+Console.WriteLine($"Name: {permAddress.Name}, Address: {permAddress.Address}, CreatedBy: {permAddress.CreatedBy}, CreatedOn: {permAddress.CreatedOn}");
+Console.WriteLine("After Mapping Permanent Address");
+//Here CreatedBy with Fixed Valye and CreatedOn with Dynamic Value
+Console.WriteLine($"Name: {tempAddress.Name}, Address: {tempAddress.Address}, CreatedBy: {tempAddress.CreatedBy}, CreatedOn: {tempAddress.CreatedOn}");
+
+#endregion
+
+Console.WriteLine();
+
+#region AutoMapper configurado para usar valores fixos e dinamicos e substituindo valores nulll por N/A
+
+// Outras configurações na classe MapperConfig
+var tempAddress1 = mapper.Map<TemporaryAddress>(permAddress1);
+
+Console.WriteLine("After Mapping Permanent Address without createdby and createdon null");
+//Here CreatedBy and CreatedOn will be empty for Permanent Address
+Console.WriteLine($"Name: {permAddress1.Name}, Address: {permAddress1.Address}, CreatedBy: {permAddress1.CreatedBy}, CreatedOn: {permAddress1.CreatedOn}");
+Console.WriteLine("After Mapping Permanent Address");
+//Here CreatedBy with Fixed Valye and CreatedOn with Dynamic Value
+Console.WriteLine($"Name: {tempAddress1.Name}, Address: {tempAddress1.AddressNull}, CreatedBy: {tempAddress1.CreatedBy}, CreatedOn: {tempAddress1.CreatedOn}");
 
 #endregion
 

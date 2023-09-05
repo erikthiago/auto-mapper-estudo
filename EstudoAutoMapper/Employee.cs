@@ -11,6 +11,7 @@
         public string? Address { get; set; }
         public string? Department { get; set; }
         public Address? AddressObject { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// Tipo criado para exemplificar como mapear de tipos primitivos para objeto complexo
@@ -24,6 +25,17 @@
         /// Tipo criado para exemplificar como mapear de tipos primitivos para objeto complexo
         /// </summary>
         public string? Country { get; set; }
+
+        /// <summary>
+        /// Tipo criado para exemplificar como ignorar várias props usando método de extensão
+        /// </summary>
+        [NoMap]
+        public string? EmailToIgnore { get; set; }
+        /// <summary>
+        /// Tipo criado para exemplificar como ignorar várias props usando método de extensão
+        /// </summary>
+        [NoMap]
+        public string? AddressToIgnoreExtensionMethod { get; set;}
     }
 
 }
